@@ -1,7 +1,17 @@
 class UsersController < ApplicationController
   def index
-    @doctors = User.where(role: 'doctor').all
-    @patients = User.where(role: 'patient').all
+    if current_user.role == 'doctor'
+      @patients = User.where(role: 'patient').all
+    elsif current_user.role == 'patient'
+      @categories = Category.all
+      if params[:category_id]
+        @category = Category.includes(:users)
+                            .find(params[:category_id])
+        @doctors = @category.users
+      else
+        @doctors = User.where(role: 'doctor').all
+      end
+    end
   end
 end
   

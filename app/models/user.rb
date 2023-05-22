@@ -6,5 +6,7 @@ class User < ApplicationRecord
   
   validates :username, uniqueness: true
 
+  has_and_belongs_to_many :categories
+
   ROLES = %i[admin doctor patient]
 end

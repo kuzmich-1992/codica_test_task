@@ -1,5 +1,18 @@
 <% if current_user.role == 'patient' %>
-  <h1>patient</h1>
+  <h1>filters</h1>
+
+  <div class="btn btn-info">
+    <%= link_to "clear filters", root_path, :class => "btn" %>
+  </div>
+  
+  <% @categories.each do |category| %>
+    <div class="btn btn-warning">
+      <%= link_to "#{category.name}", root_path(category_id: category.id), :class => "btn" %>
+    </div>
+  <% end %>
+
+  <h1>doctors</h1>
+
   <% @doctors.each do |user| %>
     <div class="card border-dark mb-3">
       <div class="card">
@@ -10,7 +23,7 @@
     </div>
   <% end %>
 <% elsif current_user.role == 'doctor' %>
-  <h1>doctor</h1>
+  <h1>patients</h1>
   <% @patients.each do |user| %>
     <div class="card border-dark mb-3">
       <div class="card">
@@ -21,3 +34,4 @@
     </div>
   <% end %>
 <% end %>
+
