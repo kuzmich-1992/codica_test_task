@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
+    @doctors = User.where(role: 'doctor').all
+    @patients = User.where(role: 'patient').all
   end
 end
   
