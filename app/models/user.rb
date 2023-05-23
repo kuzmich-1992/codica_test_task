@@ -8,5 +8,7 @@ class User < ApplicationRecord
 
   has_and_belongs_to_many :categories
 
+  has_many :consultations
+
   ROLES = %i[admin doctor patient]
 end

@@ -7,11 +7,10 @@ class UsersController < ApplicationController
       if params[:category_id]
         @category = Category.includes(:users)
                             .find(params[:category_id])
-        @doctors = @category.users
+        @doctors = @category.users.where(role: 'doctor').all
       else
         @doctors = User.where(role: 'doctor').all
       end
     end
   end
 end
-  

@@ -18,12 +18,17 @@
       <div class="card">
         <div class="card-body" style="background-color: #B0C4DE";>
           <p>name: <%= user.email %></p>
+          <div class="btn btn-light">
+            <%= link_to "schedule a consultation", :class => "btn" %>
+          </div>
         </div>
       </div>
     </div>
   <% end %>
 <% elsif current_user.role == 'doctor' %>
+
   <h1>patients</h1>
+
   <% @patients.each do |user| %>
     <div class="card border-dark mb-3">
       <div class="card">
