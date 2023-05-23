@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   def index
     if current_user.role == 'doctor'
-      @patients = User.where(role: 'patient').all
+      @patient_ids = current_user.consultations.map(&:patient_id)
+      @patients = User.where(id: @patient_ids)
     elsif current_user.role == 'patient'
       @categories = Category.all
       if params[:category_id]

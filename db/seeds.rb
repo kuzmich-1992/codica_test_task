@@ -3,7 +3,7 @@ if Rails.env.development?
     User.create!(email: "user#{i}@example.com", 
                 password: '123456',
                 password_confirmation: '123456',
-                username: "admin#{i}@example")
+                username: "user#{i}@example")
   end
   
   3.times do |i|
@@ -14,7 +14,15 @@ if Rails.env.development?
                 username: "doctor#{i}@example")
   end
 
+  User.create!(email: "admin@example.com", 
+                password: '123456',
+                role: 'admin',
+                password_confirmation: '123456',
+                username: "admin@example")
+
   3.times do |i|
     Category.create!(name: "category#{i}@example")
   end
+
+  Category.last.users << User.where(role: 'doctor').last
 end

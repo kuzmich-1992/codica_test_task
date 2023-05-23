@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2023_05_23_071740) do
     t.bigint "user_id", null: false
     t.bigint "patient_id"
     t.boolean "open", default: true
+    t.string "recomendation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_consultations_on_user_id"
