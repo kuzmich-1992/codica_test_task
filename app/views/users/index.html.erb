@@ -1,42 +1,57 @@
-<% if current_user.role == 'patient' %>
-  <h1>filters</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <% if current_user.role == 'patient' %>
+        <h1>filters</h1>
 
-  <div class="btn btn-info">
-    <%= link_to "clear filters", root_path, :class => "btn" %>
-  </div>
-  
-  <% @categories.each do |category| %>
-    <div class="btn btn-warning">
-      <%= link_to "#{category.name}", root_path(category_id: category.id), :class => "btn" %>
-    </div>
-  <% end %>
-
-  <h1>doctors</h1>
-
-  <% @doctors.each do |user| %>
-    <div class="card border-dark mb-3">
-      <div class="card">
-        <div class="card-body" style="background-color: #B0C4DE";>
-          <p>name: <%= user.email %></p>
-          <div class="btn btn-light">
-            <%= link_to "schedule a consultation", :class => "btn" %>
+        <div class="btn btn-info">
+          <%= link_to "clear filters", root_path, :class => "btn" %>
+        </div>
+        
+        <% @categories.each do |category| %>
+          <div class="btn btn-warning">
+            <%= link_to "#{category.name}", root_path(category_id: category.id), :class => "btn" %>
           </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-<% elsif current_user.role == 'doctor' %>
+        <% end %>
 
-  <h1>patients</h1>
+        <h1>doctors</h1>
 
-  <% @patients.each do |user| %>
-    <div class="card border-dark mb-3">
-      <div class="card">
-        <div class="card-body" style="background-color: #B0C4DE";>
-          <p>name: <%= user.email %></p>
-        </div>
-      </div>
+        <% @doctors.each do |doctor| %>
+          <div class="card border-dark mb-3">
+            <div class="card">
+              <div class="card-body" style="background-color: #B0C4DE";>
+                <p>name: <%= doctor.email %></p>
+                <% if doctor.consultations.where(patient_id: current_user.id).count < 1 %>
+                  <div class="btn btn-light">
+                    <%= link_to "schedule a consultation",
+                                book_consultation_path(doctor_id: doctor.id),
+                                method: :post, 
+                                :class => "btn" %>
+                  </div>
+                <% elsif doctor.consultations.where(patient_id: current_user.id).count == 1%>
+                  <div class="card-body" style="background-color: #14A44D";>
+                    consultation sheduled
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% elsif current_user.role == 'doctor' %>
+
+        <h1>patients</h1>
+
+        <% @patients.each do |user| %>
+          <div class="card border-dark mb-3">
+            <div class="card">
+              <div class="card-body" style="background-color: #B0C4DE";>
+                <p>name: <%= user.email %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
     </div>
-  <% end %>
-<% end %>
+  </div>
+</div>
 

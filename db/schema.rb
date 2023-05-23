@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2023_05_23_071740) do
 
   create_table "consultations", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "patient_id"
+    t.bigint "patient_id"
     t.boolean "open", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
