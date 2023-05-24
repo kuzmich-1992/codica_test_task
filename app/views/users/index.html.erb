@@ -6,6 +6,19 @@
     </div>
     <div class="col-sm">
     <h2>create category</h2>
+      <% if flash[:success].present? %>
+        <div class="card">
+          <div class="card-body" style="background-color: #35DC79";>
+            <p class='flash-notice'><%= flash[:success] %></p>
+          </div>
+        </div>
+      <% elsif flash[:alert].present? %>
+      <div class="card">
+        <div class="card-body" style="background-color: #C6303E";>
+          <p class='flash-error'><%= flash[:alert] %></p>
+        </div>
+      </div>
+      <% end %>
       <%= simple_form_for :category, :url => create_category_path, :method => :post do |f| %>
         <%= f.input :name %>
         <div class="btn btn-warning">
