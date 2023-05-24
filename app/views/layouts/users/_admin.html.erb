@@ -21,6 +21,14 @@
           <div class="card">
             <div class="card-body" style="background-color: #B0C4DE";>
               <p>name: <%= doctor.email %></p>
+              <% options = @categories.map { |category| [category.name, category.id] } %>
+              <% if doctor.categories.count < 1 %>
+                <%= simple_form_for :assign_user_to_category, url: assign_user_to_category_path, method: :post do |f| %>
+                  <%= f.input :category_id, collection: options, default: options.first %>
+                  <%= f.hidden_field :doctor_id, :value => doctor.id %>
+                  <%= f.submit "add category"%>
+                <% end %>
+              <% end %>
             </div>
           </div>
         </div>

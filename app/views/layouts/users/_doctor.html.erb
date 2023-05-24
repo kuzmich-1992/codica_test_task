@@ -11,7 +11,7 @@
                 <%= simple_form_for :recomendation, url: update_consultation_path, method: :patch do |f| %>
                   <%= f.hidden_field :patient_id, :value => patient.id %>
                   <%= f.input :recomendation, as: :text, :input_html => { class: 'test', :cols => 5, :rows => 3 } %>   
-                  <%= f.button :submit%>
+                  <%= f.button :submit %>
                 <% end %>
               <% else %>
                 consultation closed
@@ -23,7 +23,7 @@
     </div>
     <div class="col-sm">
       <h1>recomendations</h1>
-        <% Consultation.where(open: false).each do |consultation| %>
+        <% Consultation.where("open = ? AND user_id = ?", false, current_user.id).each do |consultation| %>
         <div class="card border-dark mb-3">
           <div class="card">
             <div class="card-body" style="background-color: #B0C4DE";>
