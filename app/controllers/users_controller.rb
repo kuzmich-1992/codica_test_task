@@ -12,6 +12,10 @@ class UsersController < ApplicationController
       else
         @doctors = User.where(role: 'doctor').all
       end
+    elsif current_user.role == 'admin'
+      @users = User.where(role: 'patient').all
+      @doctors = User.where(role: 'doctor').all
+      @categories = Category.all
     end
   end
 end
