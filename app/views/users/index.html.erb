@@ -1,43 +1,12 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm">
-      <p>
-      <h1><%=current_user.email%> profile </h1>
-    </div>
-    <div class="col-sm">
-    <h2>create category</h2>
-      <% if flash[:success].present? %>
-        <div class="card">
-          <div class="card-body" style="background-color: #35DC79";>
-            <p class='flash-notice'><%= flash[:success] %></p>
-          </div>
-        </div>
-      <% elsif flash[:alert].present? %>
-      <div class="card">
-        <div class="card-body" style="background-color: #C6303E";>
-          <p class='flash-error'><%= flash[:alert] %></p>
-        </div>
-      </div>
-      <% end %>
-      <%= simple_form_for :category, :url => create_category_path, :method => :post do |f| %>
-        <%= f.input :name %>
-        <div class="btn btn-warning">
-          <%= f.button :submit %>
-        </div>
-      <% end %>
-    </div>
-      <h2>
-        <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
-      </h2>
-    </div>
-  </div>
-</div>
+<% if current_user.role == 'admin' %>
+  <%= render partial: '/layouts/users/admin_header' %>
+<% end %>
 <% if current_user.role == 'patient' %>
+  <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
   <%= render partial: '/layouts/users/patient' %>
 <% elsif current_user.role == 'doctor' %>
+  <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
   <%= render partial: '/layouts/users/doctor' %>
 <% elsif current_user.role == 'admin' %>
   <%= render partial: '/layouts/users/admin' %>
 <% end %>
-
-

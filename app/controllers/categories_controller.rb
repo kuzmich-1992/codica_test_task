@@ -9,4 +9,7 @@ class CategoriesController < ApplicationController
       redirect_back(fallback_location: root_path)
     end
   end
+
+  def assign_user_to_category
+  end
 end
