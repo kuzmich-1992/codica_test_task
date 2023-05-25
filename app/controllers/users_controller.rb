@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     @user.update(user_params)
-    if @user.save
+    if @user.save!
       redirect_to root_path
     end
   end

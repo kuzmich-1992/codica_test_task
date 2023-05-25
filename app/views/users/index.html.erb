@@ -1,6 +1,6 @@
 <%= form_for @user do |form| %>
   <%= form.file_field :avatar, direct_upload: true %>
-  <%= form.submit "Update User" %>
+  <%= form.submit "Update avatar" %>
 <% end %>
 
 <% if @user.avatar.attached? %>
@@ -13,6 +13,7 @@
 
 <% if current_user.role == 'patient' %>
   <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
+  <h1><%= current_user.email %></h1>
   <%= render partial: '/layouts/users/patient' %>
 <% elsif current_user.role == 'doctor' %>
   <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
