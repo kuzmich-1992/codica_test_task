@@ -8,15 +8,17 @@ class User < ApplicationRecord
 
   validate :maximum_categories_count
 
-  validate :maximum_open_consultations_count
+  validate :maximum_consultations_count
 
   has_and_belongs_to_many :categories
 
   has_many :consultations
 
+  has_one_attached :avatar
+
   ROLES = %i[admin doctor patient]
 
-  def maximum_categories_count
+  def maximum_consultations_count
     if self.consultations.where(open: true).count > 10
       self.errors.add(:groups, "cannot have more than 10 open")
     end

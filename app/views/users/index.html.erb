@@ -1,6 +1,16 @@
+<%= form_for @user do |form| %>
+  <%= form.file_field :avatar, direct_upload: true %>
+  <%= form.submit "Update User" %>
+<% end %>
+
+<% if @user.avatar.attached? %>
+    <%= cl_image_tag @user.avatar.key, :cloud_name => "kuzmich-1992", :width=>150, :crop=>"fill" %>
+<% end %>
+
 <% if current_user.role == 'admin' %>
   <%= render partial: '/layouts/users/admin_header' %>
 <% end %>
+
 <% if current_user.role == 'patient' %>
   <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
   <%= render partial: '/layouts/users/patient' %>
