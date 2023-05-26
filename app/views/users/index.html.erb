@@ -1,10 +1,6 @@
-<%= form_for @user do |form| %>
+<%= simple_form_for @user do |form| %>
   <%= form.file_field :avatar, direct_upload: true %>
   <%= form.submit "Update avatar" %>
-<% end %>
-
-<% if @user.avatar.attached? %>
-    <%= cl_image_tag @user.avatar.key, :cloud_name => "kuzmich-1992", :width=>150, :crop=>"fill" %>
 <% end %>
 
 <% if current_user.role == 'admin' %>
@@ -12,11 +8,34 @@
 <% end %>
 
 <% if current_user.role == 'patient' %>
-  <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
-  <h1><%= current_user.email %></h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <p>
+        <h1><%= current_user.email %></h1>
+      </div>
+      <div class="col-sm">
+        <% if current_user.avatar.attached? %>
+          <%= cl_image_tag current_user.avatar.key, :cloud_name => "kuzmich-1992", :width=>100, :crop=>"fill" %>
+        <% end %>
+        <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
+      </div>
+    </div>
+  </div>
   <%= render partial: '/layouts/users/patient' %>
 <% elsif current_user.role == 'doctor' %>
-  <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
+      </div>
+      <div class="col-sm">
+        <% if current_user.avatar.attached? %>
+          <%= cl_image_tag current_user.avatar.key, :cloud_name => "kuzmich-1992", :width=>100, :crop=>"fill" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
   <%= render partial: '/layouts/users/doctor' %>
 <% elsif current_user.role == 'admin' %>
   <%= render partial: '/layouts/users/admin' %>

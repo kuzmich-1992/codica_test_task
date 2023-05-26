@@ -1,4 +1,4 @@
-if Rails.env.development?
+if Rails.env.development? || Rails.env.production?
   3.times do |i|
     User.create!(email: "user#{i}@example.com", 
                  password: '123456',

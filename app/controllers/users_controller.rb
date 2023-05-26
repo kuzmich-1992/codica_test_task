@@ -22,9 +22,12 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    @user.update(user_params)
-    if @user.save!
-      redirect_to root_path
+    if params[:user].blank?
+      redirect_to root_path  
+    elsif @user.update(user_params)
+      if @user.save!
+        redirect_to root_path
+      end
     end
   end
 

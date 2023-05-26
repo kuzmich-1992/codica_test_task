@@ -27,6 +27,9 @@
       <% end %>
     </div>
       <h2>
+        <% if current_user.avatar.attached? %>
+          <%= cl_image_tag current_user.avatar.key, :cloud_name => "kuzmich-1992", :width=>100, :crop=>"fill" %>
+        <% end %>
         <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
       </h2>
     </div>
